@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsidian Link Encoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .result a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Obsidian Link Encoder</h1>
+    <p>Enter your Obsidian link below to convert it:</p>
+    <input type="text" id="obsidianLink" placeholder="obsidian://open?vault=...">
+    <button onclick="convertLink()">Convert</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function convertLink() {
+            const obsidianLink = document.getElementById('obsidianLink').value;
+            const encodedUrl = encodeURIComponent(obsidianLink);
+            const finalUrl = `https://spx.vercel.app/1/${encodedUrl}`;
+
+            document.getElementById('result').innerHTML = `
+                <p>Converted Link:</p>
+                <a href="${finalUrl}" target="_blank">${finalUrl}</a>
+            `;
+        }
+    </script>
+</body>
+</html>
