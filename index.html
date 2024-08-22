@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obsidian Link Encoder</title>
+    <title></title>
     <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
             background-color: transparent;
-        }
-        h1 {
-            color: #333;
         }
         input[type="text"] {
             width: 100%;
@@ -63,14 +60,18 @@
         .copy-button:hover {
             background-color: #45a049;
         }
+        .copy-feedback {
+            margin-top: 10px;
+            color: #28a745; /* Green color for success */
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Obsidian Link Encoder</h1>
-    <p>Enter your Obsidian link below to convert it:</p>
     <input type="text" id="obsidianLink" placeholder="obsidian://open?vault=...">
     <button onclick="convertLink()">Convert</button>
     <div class="result" id="result"></div>
+    <div class="copy-feedback" id="copyFeedback">Copied to clipboard!</div>
 
     <script>
         function convertLink() {
@@ -79,7 +80,6 @@
             const finalUrl = `https://spx.vercel.app/1/${encodedUrl}`;
 
             document.getElementById('result').innerHTML = `
-                <p>Converted Link:</p>
                 <a href="${finalUrl}" target="_blank" id="convertedLink">${finalUrl}</a>
                 <button class="copy-button" onclick="copyToClipboard()">Copy</button>
             `;
@@ -88,7 +88,11 @@
         function copyToClipboard() {
             const copyText = document.getElementById('convertedLink').textContent;
             navigator.clipboard.writeText(copyText).then(() => {
-                alert('Copied to clipboard');
+                const feedback = document.getElementById('copyFeedback');
+                feedback.style.display = 'block'; // Show the feedback message
+                setTimeout(() => {
+                    feedback.style.display = 'none'; // Hide it after 2 seconds
+                }, 2000);
             }).catch(err => {
                 console.error('Could not copy text: ', err);
             });
